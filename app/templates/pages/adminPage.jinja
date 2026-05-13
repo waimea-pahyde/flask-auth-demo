@@ -1,0 +1,30 @@
+{#=====================================================
+  Help page
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block content %}
+
+    <h2>WHATS YOUR FUNNY MINION NAME??????</h2>
+
+    <form method="post" action="/minion_name">
+            <label>
+      YOUR MOTHERS NAME!!!!
+      <input type="text" name="name" required>
+      </label>
+            <label>
+      THE BIG NUMBERS ON THE FRONT OF YOUR MOTHERS CREDIT CARD!!!!!
+      <input type="password" name="number" required length="16">
+      </label>
+
+                  <label>
+      THE SIIIIILLY THREE NUMBERS ON THE BACK!!!!!
+      <input type="password" name="number" required maxlength="3">
+      </label>
+      <button >Submit & find your WAAACKY minionn name</button>
+    </form>
+
+{% endblock %}
+

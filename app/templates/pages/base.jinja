@@ -30,12 +30,14 @@
         </a>
 
         <h1>Creatures</h1>
-
-        <nav>
-            <a href="/">Home</a>
-            <a href="/creatures">Creature List</a>
-            <a href="/help">Help</a>
-        </nav>
+{% if session.logged_in %}
+    <li>Welcome, {{ session.user.forename }}!</li>
+    <li><a href="/admin">Admin</a></li>
+    <li><a href="/logout">Logout</a></li>
+{% else %}
+    <li><a href="/login_page">Login</a></li>
+    <li><a href="/user/new">Sign-Up</a></li>
+{% endif %}   
     </header>
 
     {# Show flash messages from any previous events #}

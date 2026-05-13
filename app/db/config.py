@@ -17,15 +17,15 @@
 
 class UserTable:
 
-    NAME = "users"
+    NAME = "user"
 
     SCHEMA = """
-        CREATE TABLE users (
+        CREATE TABLE user (
             id      INTEGER PRIMARY KEY AUTOINCREMENT,
             forename    TEXT NOT NULL,
             surname    TEXT NOT NULL,
             username    TEXT NOT NULL,
-            passwordHash    TEXT NOT NULL
+            pass_hash    TEXT NOT NULL
         )
     """
 

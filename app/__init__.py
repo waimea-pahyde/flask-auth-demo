@@ -165,3 +165,8 @@ def logout_admin():
 def get_minion_name():
         return render_template("pages/mionName.jinja")
 
+
+
+@app.get("/post_message")
+def show_message_form():
+    return render_template("pages/message_form.jinja")

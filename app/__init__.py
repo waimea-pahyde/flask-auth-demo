@@ -140,6 +140,7 @@ def login_user():
 
         session["logged_in"] = True
         session["user"] = {
+            "id": user["id"],
             "username": username,
             "forename": user["forename"],
             "surname":  user["surname"],
@@ -167,6 +168,42 @@ def get_minion_name():
 
 
 
-@app.get("/post_message")
+@app.get("/message_new")
+@login_required
 def show_message_form():
     return render_template("pages/message_form.jinja")
+
+@app.post("/message")
+def add_message():
+    user = session["user"]
+    id = user["id"]
+    title = request.form.get('title', '').strip()
+    body = request.form.get('body', '').strip()
+
+    with connect_db() as db:
+        sql = """
+            INSERT INTO message (user_id, title, body)
+            VALUES (?, ?, ?)
+        """
+        params = (id, title, body, pass_hash)
+        db.execute(sql, params)
+    
+        
+
+        flash("message posted!!", "success")
+        return redirect("/")
+    
+
+@app.get("/messages")
+def show_messages():
+    with connect_db() as db:
+        sql = """
+        SELECT *
+        FROM message
+        JOIN user ON message.user_id=user.id
+
+""" 
+        messages = db.execute(sql).fetchall()
+    return render_template("pages/messages.jinja", message=messages)
+        
+

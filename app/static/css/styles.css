@@ -4,24 +4,39 @@
 ===========================================================*/
 
 :root {
-    --text-col:         #244;
+    --accent-col: #530306;
+    --base-col: #FFFFF;
+   
+    
+    --padding: 1rem;
+    --padding-sm: 0.5rem;
 
-    --back-col:         #dff;
-    --back-col-dark:    #bdd;
+    --gap: 1rem;
 
-    --border-col:       #355;
+   
 
-    --accent-col:       #e43;
+    --base-col-lighter: color-mix(in srgb, var(--base-col), #fff 50%);
+    --base-col-darker: color-mix(in srgb, var(--base-col), #000 75%);
+    --base-col-light: color-mix(in srgb, var(--base-col), #fff 75%);
+    --base-col-dark: color-mix(in srgb, var(--base-col), #000 90%);
+
+    --text-col: #C7BEBA;
+
+    --page-bg:var(--base-col-light);
+
+    --panel-bg: var(--base-col-lighter)
+
+
 }
 
 
 /* Overall Layout -----------------------------------------------*/
 
 html {
-    background-color: var(--back-col);
+    background-color: var(--base-col);
     color: var(--text-col);
 
-    font-family: system-ui, sans-serif;
+    font-family: scientifica;
 }
 
 

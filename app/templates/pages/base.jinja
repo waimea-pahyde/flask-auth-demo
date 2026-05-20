@@ -31,12 +31,13 @@
 
         <h1>Creatures</h1>
 {% if session.logged_in %}
-    <li>Welcome, {{ session.user.forename }}!</li>
-    <li><a href="/admin">Admin</a></li>
-    <li><a href="/logout">Logout</a></li>
+    Welcome, {{ session.user.forename }}!
+    <a href="/admin">Admin</a>
+    <a href="/logout">Logout</a>
+    <a href="/messages">Messages</a>
 {% else %}
-    <li><a href="/login_page">Login</a></li>
-    <li><a href="/user/new">Sign-Up</a></li>
+    <a href="/login_page">Login</a>
+    <a href="/user/new">Sign-Up</a>
 {% endif %}   
     </header>
 

@@ -7,19 +7,22 @@
 
 {% block content %}
 
-    <h2>Login</h2>
+  <section>
+    <h2>Post a new message</h2>
 
-    <form method="post" action="/login">
+    <form method="post" action="/message">
             <label>
-      Username
-      <input type="text" name="username" required>
+      Post title
+      <input type="text" name="title" required>
       </label>
             <label>
-      password
-      <input type="password" name="password" required>
+      Post:
+      <input type="text
+      " name="body" required>
       </label>
       <button >Submit</button>
     </form>
+    </section>
 
 {% endblock %}
 

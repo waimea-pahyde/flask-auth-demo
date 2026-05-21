@@ -185,7 +185,7 @@ def add_message():
             INSERT INTO message (user_id, title, body)
             VALUES (?, ?, ?)
         """
-        params = (id, title, body, pass_hash)
+        params = (id, title, body)
         db.execute(sql, params)
     
         
@@ -206,4 +206,18 @@ def show_messages():
         messages = db.execute(sql).fetchall()
     return render_template("pages/messages.jinja", message=messages)
         
+@app.get(f"/message/<int:id>/edit")
+@login_required
+def show_edit_message_form(id):
+    with connect_db() as db:
+        sql = """
+            SELECT id, title, body, user_id FROM messages WHERE id=?
+        """
+        params = (id,)
+        message = db.execute(sql, params).fetchone()
 
+        if message and message["user_id"] == session["user"]["id"]:
+            return render_template("pages/message_edit_form.jinja", message=message)
+
+        flash("Invalid message", "error")
+        return redirect("/messages")

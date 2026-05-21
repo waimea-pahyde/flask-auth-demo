@@ -14,10 +14,16 @@
     <section id="messages">
 
         {% for messag in message %}
+        <section id="message">
             <h3> {{messag.title}} </h3>
-            <p>{{messag.body}}</p>
             <h4>{{messag.username}}</h4>
+            <p>{{messag.body}}</p>
 
+             {% if session.logged_in and messag.user_id == session.user.id %}
+                <a href="/message/{{messag.id}}/edit"</a>
+                    {% endif %}
+            
+</section>
 
         {% else %}
 

@@ -99,7 +99,7 @@ main > h2 {
 
 /* Creature List --------------------------------------------------*/
 
-#creatures {
+#messages {
     display: grid;
     gap: 2rem;
     grid-template-columns: 1fr;
@@ -112,16 +112,28 @@ main > h2 {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .creature {
+    .message {
         padding: 1rem;
 
         background-color: var(--back-col-dark);
-        border: 2px solid var(--border-col);
+        border: 10rem solid var(--accent-col);
         border-radius: 0.5rem;
 
         h3 {
             color: var(--accent-col);
         }
+    }
+}
+
+#message{
+    padding: 1rem;
+
+    background-color: var(--back-col-dark);
+    border: 2px solid var(--accent-col);
+    border-radius: 0.5rem;
+
+    h3 {
+        color: var(--accent-col);
     }
 }
 

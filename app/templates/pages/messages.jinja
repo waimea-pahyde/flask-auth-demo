@@ -7,11 +7,12 @@
 
 {% block content %}
 
+    <section id="messages">
     <h2>List of messages</h2>
     <a href="/message_new">Post a new message</a>
+</section>
 
 
-    <section id="messages">
 
         {% for messag in message %}
         <section id="message">
@@ -19,10 +20,13 @@
             <h4>{{messag.username}}</h4>
             <p>{{messag.body}}</p>
 
-             {% if session.logged_in and messag.user_id == session.user.id %}
-                <a href="/message/{{messag.id}}/edit"</a>
+             {% if (session.logged_in and messag.user_id == session.user.id) or (session.user.admin==1) %}
+                <a href="/message/{{messag.id}}/edit">edit message</a>
+                <a href="/message/{{messag.id}}/delete">delete message</a>
                     {% endif %}
-            
+
+        
+ 
 </section>
 
         {% else %}
@@ -31,7 +35,7 @@
 
         {% endfor %}
 
-    </section>
+  
 
 {% endblock %}
 

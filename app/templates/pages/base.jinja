@@ -30,11 +30,13 @@
         </a>
 
         <h1>Creatures</h1>
+
 {% if session.logged_in %}
     Welcome, {{ session.user.forename }}!
-    <a href="/admin">Admin</a>
     <a href="/logout">Logout</a>
     <a href="/messages">Messages</a>
+
+
 {% else %}
     <a href="/login_page">Login</a>
     <a href="/user/new">Sign-Up</a>

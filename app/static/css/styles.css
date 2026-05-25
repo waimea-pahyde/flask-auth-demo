@@ -5,9 +5,7 @@
 
 :root {
     --accent-col: #530306;
-    --base-col: #FFFFF;
-   
-    
+    --base-col: #FFFFF; 
     --padding: 1rem;
     --padding-sm: 0.5rem;
 
@@ -24,8 +22,9 @@
 
     --page-bg:var(--base-col-light);
 
-    --panel-bg: var(--base-col-lighter)
+    --panel-bg: var(--base-col-lighter);
 
+    --font: scientifica
 
 }
 
@@ -36,7 +35,10 @@ html {
     background-color: var(--base-col);
     color: var(--text-col);
 
-    font-family: scientifica;
+    font-family: var(--font);
+
+
+    
 }
 
 
@@ -94,36 +96,30 @@ main > h2 {
     font-size: 2rem;
     text-align: center;
     margin-block: 2rem;
+  
 }
 
 
 /* Creature List --------------------------------------------------*/
 
 #messages {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: 1fr;
 
-    @media (width >= 500px) {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    @media (width >= 800px) {
-        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .message {
         padding: 1rem;
 
         background-color: var(--back-col-dark);
-        border: 10rem solid var(--accent-col);
+        border: 0.5rem solid var(--accent-col);
         border-radius: 0.5rem;
 
         h3 {
             color: var(--accent-col);
         }
+
+        
     }
-}
+
 
 #message{
     padding: 1rem;

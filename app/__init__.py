@@ -118,12 +118,12 @@ def show_login_form():
 
 @app.post("/login")
 def login_user():
-    username = request.form.get('username', '').strip().lower()
+    username = request.form.get('username', '').strip()
     password = request.form.get('password', '').strip()
 
     with connect_db() as db:
         sql = """
-            SELECT id, forename, surname, pass_hash
+            SELECT id, forename, surname, pass_hash, is_admin
             FROM user
             WHERE username=?
         """
@@ -144,6 +144,7 @@ def login_user():
             "username": username,
             "forename": user["forename"],
             "surname":  user["surname"],
+            "admin": user["is_admin"]
         }
 
         flash("Login successful", "success")
@@ -211,7 +212,7 @@ def show_messages():
 def show_edit_message_form(id):
     with connect_db() as db:
         sql = """
-            SELECT id, title, body, user_id FROM messages WHERE id=?
+            SELECT id, title, body, user_id FROM message WHERE id=?
         """
         params = (id,)
         message = db.execute(sql, params).fetchone()
@@ -221,3 +222,51 @@ def show_edit_message_form(id):
 
         flash("Invalid message", "error")
         return redirect("/messages")
+    
+@app.post("/message/<int:id>/update")
+@login_required
+def process_edited_message(id):
+    title = request.form.get("title", "").strip()
+    body = request.form.get("body", "").strip()
+
+    user_id = session["user"]["id"]
+
+    with connect_db() as db:
+        sql = """
+            UPDATE message SET
+                title = ?,
+                body = ?
+            WHERE id = ? AND user_id = ?
+        """
+        params = (title, body, id, user_id)
+        db.execute(sql, params)
+
+        flash("Message updated", "success")
+        return redirect("/messages")
+
+
+
+@app.get(f"/message/<int:id>/delete")
+@login_required
+def process_delete_message(id):
+    with connect_db() as db:
+        sql = """
+            SELECT user_id FROM message WHERE id=?
+        """
+        params = (id,)
+        message = db.execute(sql, params).fetchone()
+
+        if message and message["user_id"] == session["user"]["id"]:
+
+            sql = """
+                DELETE FROM message WHERE id=?
+            """
+            params = (id,)
+            db.execute(sql, params)
+
+            flash("Message deleted", "success")
+            return redirect("/messages")
+
+        flash("Invalid message", "error")
+        return redirect("/messages")
+    

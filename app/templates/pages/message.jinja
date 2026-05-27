@@ -1,0 +1,40 @@
+{#=====================================================
+  Creature List page
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block content %}
+
+   
+
+
+ <section id="message">
+            <h1>{{message.title}}</h1>
+            <h4>{{message.username}}</h4>
+            <p>{{message.body}}</p>
+
+             {% if (session.logged_in and message.user_id == session.user.id) or (session.user.admin==1) %}
+                <a href="/message/{{message.id}}/edit">edit message</a>
+                <a href="/message/{{message.id}}/delete">delete message</a>
+                 </section>
+                    {% endif %}
+        
+    {% for reply in replies %}
+    <h3>{{reply.username}} is replying to {{message.username}}</h3>
+            <h3>{{reply.body}}</h3>
+
+        
+
+
+        {% else %}
+
+            <p>no messages</p>
+
+        {% endfor %}
+
+  
+
+{% endblock %}
+

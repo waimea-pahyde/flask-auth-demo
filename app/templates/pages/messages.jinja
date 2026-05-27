@@ -24,11 +24,14 @@
                 <a href="/message/{{messag.id}}/edit">edit message</a>
                 <a href="/message/{{messag.id}}/delete">delete message</a>
                     {% endif %}
-
+           
+            {% if (session.logged_in)%}
+            <a href="/message/{{messag.id}}">View replies</a>
+            {% endif %}
         
  
 </section>
-
+ 
         {% else %}
 
             <p>no messages</p>

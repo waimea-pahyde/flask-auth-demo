@@ -63,6 +63,30 @@ class MessagesTable:
 # Add more table classes here...
 
 
+class repliesTable:
+
+    NAME = "reply"
+
+    SCHEMA = """
+        CREATE TABLE reply (
+            id      INTEGER PRIMARY KEY AUTOINCREMENT,
+            message_id     INTEGER NOT NULL,
+            user_id  INTEGER NOT NULL,
+            body    TEXT NOT NULL,
+
+             FOREIGN KEY(message_id) REFERENCES message(id)
+             FOREIGN KEY(user_id) REFERENCES user(id)
+        )
+    """
+
+    SEED_DATA = """
+        INSERT INTO reply (message_id, user_id, body) VALUES 
+(1, 2, 'test message??? i hardly know-age!!!'), 
+(2,  1, 'thats obviously incorrect'), 
+(2, 3, 'me too brotato me too' );
+
+"""
+
 
 #----------------------------------------------------------------------------
 # Table registry
@@ -81,7 +105,8 @@ class MessagesTable:
 
 TABLES = [
     UserTable,
-    MessagesTable
+    MessagesTable,
+    repliesTable
     # Add more tables here...
 ]
 

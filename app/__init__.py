@@ -270,3 +270,32 @@ def process_delete_message(id):
         flash("Invalid message", "error")
         return redirect("/messages")
     
+
+
+# Show message
+@app.get("/message/<int:id>")
+def show_message(id):
+    with connect_db() as db:
+        sql = """
+        SELECT * 
+        FROM reply
+        JOIN user ON reply.user_id = user.id
+        WHERE reply.message_id = ?
+"""
+        params = (id,)
+        replies = db.execute(sql, params).fetchall()
+
+        sql = """
+        SELECT *
+        FROM message
+        JOIN user ON message.user_id=user.id
+        WHERE message.id=?
+        
+""" 
+        params = (id,)
+        message = db.execute(sql, params).fetchone()
+
+
+
+    return render_template("pages/message.jinja", replies=replies, message=message)
+        

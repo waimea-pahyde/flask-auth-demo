@@ -177,7 +177,7 @@ def show_message_form():
 @app.post("/message")
 def add_message():
     user = session["user"]
-    id = user["id"]
+    user_id = user["id"]
     title = request.form.get('title', '').strip()
     body = request.form.get('body', '').strip()
 
@@ -186,7 +186,7 @@ def add_message():
             INSERT INTO message (user_id, title, body)
             VALUES (?, ?, ?)
         """
-        params = (id, title, body)
+        params = (user_id, title, body)
         db.execute(sql, params)
     
         
@@ -207,6 +207,8 @@ def show_messages():
         messages = db.execute(sql).fetchall()
     return render_template("pages/messages.jinja", message=messages)
         
+
+
 @app.get(f"/message/<int:id>/edit")
 @login_required
 def show_edit_message_form(id):
@@ -223,6 +225,9 @@ def show_edit_message_form(id):
         flash("Invalid message", "error")
         return redirect("/messages")
     
+
+
+
 @app.post("/message/<int:id>/update")
 @login_required
 def process_edited_message(id):
@@ -263,6 +268,13 @@ def process_delete_message(id):
             """
             params = (id,)
             db.execute(sql, params)
+            
+            sql = """
+                DELETE FROM reply WHERE message_id=?
+            """
+            params = (id,)
+            db.execute(sql, params)
+            
 
             flash("Message deleted", "success")
             return redirect("/messages")
@@ -298,4 +310,22 @@ def show_message(id):
 
 
     return render_template("pages/message.jinja", replies=replies, message=message)
-        
+    
+
+@app.post("/reply/<int:id>")
+@login_required
+def post_reply(id):
+    body = request.form.get("body", "").strip()
+
+    user_id = session["user"]["id"]
+
+    with connect_db() as db:
+        sql = """
+                 INSERT INTO reply (message_id, user_id, body)
+            VALUES (?, ?, ?)
+        """
+        params = (id, user_id, body)
+        db.execute(sql, params)
+
+        flash("reply posted!!", "success")
+        return redirect("/messages")

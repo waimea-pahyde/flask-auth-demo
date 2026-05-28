@@ -14,27 +14,35 @@
             <h1>{{message.title}}</h1>
             <h4>{{message.username}}</h4>
             <p>{{message.body}}</p>
+              </section>
+
 
              {% if (session.logged_in and message.user_id == session.user.id) or (session.user.admin==1) %}
                 <a href="/message/{{message.id}}/edit">edit message</a>
                 <a href="/message/{{message.id}}/delete">delete message</a>
-                 </section>
-                    {% endif %}
-        
+               
+              {% endif %}
+
+<section id="replies">
+
+              {% if session.logged_in%}
+              <form method="post" action="/reply/{{message.id}}">
+                 <label>
+                  <input type="text" name="body" required placeholder="post a reply!">
+                </label>
+              <button>Post reply!</button>
+              </form>
+        {%endif%}
     {% for reply in replies %}
     <h3>{{reply.username}} is replying to {{message.username}}</h3>
             <h3>{{reply.body}}</h3>
 
-        
-
-
         {% else %}
 
-            <p>no messages</p>
+            <p>no replies yet!!</p>
 
         {% endfor %}
-
-  
+        </section>
 
 {% endblock %}
 
